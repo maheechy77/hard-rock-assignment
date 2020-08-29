@@ -75,7 +75,7 @@
 							class="form-control"
 							placeholder="Enter your artist song name"
 						/>
-						<button onclick="getLyrics()" class="btn btn-success search-btn">
+						<button id="getLyrics" class="btn btn-success search-btn">
 							Search
 						</button>
 					</div>
@@ -96,18 +96,22 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		<script>
-			function getLyrics() {
-				const songName = document.getElementById("songName").value;
-				const url = `https://api.lyrics.ovh/suggest/${songName}`;
-				fetch(url)
-					.then((res) => res.json())
-					.then((data) => {
-						for (let i = 0; i < 10; i++) {
-							let songs = data.data[i];
-							createDiv(songs);
-						}
-					});
-			}
+			document
+				.getElementById("getLyrics")
+				.addEventListener("click", function () {
+					deleteDiv();
+					const songName = document.getElementById("songName").value;
+					const url = `https://api.lyrics.ovh/suggest/${songName}`;
+					fetch(url)
+						.then((res) => res.json())
+						.then((data) => {
+							console.log(data);
+							for (let i = 0; i < 10; i++) {
+								let songs = data.data[i];
+								createDiv(songs);
+							}
+						});
+				});
 			function createDiv(songs) {
 				const song = document.getElementById("song");
 				const parentDiv = document.createElement("div");
@@ -143,6 +147,16 @@
 				childDivThree.appendChild(childH3);
 				childDivThree.appendChild(childP);
 				childDivTwo.appendChild(childButton);
+			}
+
+			function deleteDiv() {
+				const song = document.getElementById("song");
+				const artistAndSongName = document.getElementById("artist-songName");
+				const lyrics = document.getElementById("lyric");
+
+				artistAndSongName.innerHTML = "";
+				lyrics.innerHTML = "";
+				song.innerHTML = "";
 			}
 
 			function getLyric(artist, title) {
