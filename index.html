@@ -113,19 +113,24 @@
 				const parentDiv = document.createElement("div");
 				const childDivOne = document.createElement("div");
 				const childDivTwo = document.createElement("div");
+				const childDivThree = document.createElement("div");
+				const childImage = document.createElement("img");
 				const childH3 = document.createElement("h3");
 				const childP = document.createElement("p");
 				const childButton = document.createElement("button");
 				parentDiv.className = "single-result row align-items-center my-3 p-3";
-				childDivOne.className = "col-md-9";
+				childDivOne.className = "col-md-9 flex";
 				childDivTwo.className = "col-md-3 text-md-right text-center";
 				childH3.className = "lyrics-name";
 				childP.className = "author lead";
 				childButton.className = "btn btn-success";
+				childImage.className = "img";
 
+				childImage.src = songs.album.cover_small;
 				childH3.innerText = songs.title;
 				childP.innerText = songs.artist.name;
 				childButton.innerText = "Get Lyrics";
+
 				// childButton.onclick = getLyric(songs.artist.name, songs.title);
 				childButton.addEventListener("click", function () {
 					getLyric(songs.artist.name, songs.title);
@@ -133,8 +138,10 @@
 				song.appendChild(parentDiv);
 				parentDiv.appendChild(childDivOne);
 				parentDiv.appendChild(childDivTwo);
-				childDivOne.appendChild(childH3);
-				childDivOne.appendChild(childP);
+				childDivOne.appendChild(childImage);
+				childDivOne.appendChild(childDivThree);
+				childDivThree.appendChild(childH3);
+				childDivThree.appendChild(childP);
 				childDivTwo.appendChild(childButton);
 			}
 
